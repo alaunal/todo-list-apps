@@ -1,27 +1,25 @@
 import React from 'react';
-import dayjs from 'dayjs';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaBriefcase } from 'react-icons/fa';
 import 'twin.macro';
 
 function Header() {
-  const dateNow = dayjs().format('DD MMMM YYYY');
 
   return (
     <div tw="w-full flex px-4 h-24 items-center">
-      <div tw="pr-4">
+      <div tw="pr-2">
         <div tw="flex bg-purple-800 items-center justify-center h-12 w-12 rounded-full">
-          <span tw="text-gray-50 font-light font-body text-lg inline-block">AK</span>
+          <span tw="text-gray-50 font-light font-body text-lg inline-block"><FaBriefcase /></span>
         </div>
       </div>
       <div>
-        <p tw="text-lg text-white font-body font-light">
-          Hi, <span tw="font-medium">A.kauniyyah</span>
+        <p tw="text-base text-white font-body font-light">
+          The<span tw="font-medium text-xl">Gawe</span>
         </p>
-        <p tw="text-gray-50 font-light font-body text-sm">{dateNow}</p>
+        <p tw="text-gray-50 font-light font-body text-sm">Task Management apps</p>
       </div>
-      <div tw="flex-1 text-right pl-3">
-        <button tw="btn btn-sm">
-          <FaPlus tw="mr-2 inline-block" /> Task
+      <div tw="flex-1 text-right pl-2">
+        <button tw="inline-flex bg-gray-700 hover:bg-gray-800 rounded-full py-1 px-4 md:py-2 md:px-5 text-white text-sm md:text-base items-center font-medium">
+          <FaPlus tw="mr-1 inline-block text-xs md:text-sm" /> Task
         </button>
       </div>
     </div>

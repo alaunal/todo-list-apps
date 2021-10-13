@@ -19,7 +19,7 @@ Layout.propTypes = {
 // -- Styled area
 
 const Wrapper = styled.main(() => [
-  tw`mx-auto w-full bg-purple-300 min-h-screen relative`,
+  tw`mx-auto w-full bg-purple-500 min-h-screen relative`,
   css`
     max-width: 600px;
   `
