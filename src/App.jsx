@@ -7,6 +7,7 @@ import Layout from './components/Layout';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Tasks from './components/Tasks';
+import Forms from './components/Forms';
 
 class App extends Component {
   constructor(props) {
@@ -40,9 +41,11 @@ class App extends Component {
         },
       ],
       priorities: ['Low', 'Medium', 'high'],
+      popupForm: false,
     };
 
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.HandlePopupForm = this.HandlePopupForm.bind(this);
   }
 
   componentDidMount() {}
@@ -73,12 +76,16 @@ class App extends Component {
     });
   }
 
+  HandlePopupForm() {
+    this.setState({ popupForm: !this.state.popupForm });
+  }
+
   render() {
-    const { dataTasks, priorities } = this.state;
+    const { dataTasks, priorities, popupForm } = this.state;
 
     return (
       <Layout>
-        <Header />
+        <Header onHandlePopupForm={this.HandlePopupForm} />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable">
             {(provided, snapshot) => (
@@ -106,6 +113,8 @@ class App extends Component {
           </Droppable>
         </DragDropContext>
         <Footer />
+
+        <Forms onHandlePopupForm={this.HandlePopupForm} isOpen={popupForm} priorities={priorities} />
       </Layout>
     );
   }
