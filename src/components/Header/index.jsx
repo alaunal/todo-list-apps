@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import { FaPlus, FaBriefcase } from 'react-icons/fa';
 import 'twin.macro';
 
@@ -29,5 +30,11 @@ function Header({ onHandlePopupForm }) {
     </div>
   );
 }
+
+// -- proptypes
+
+Header.propTypes = {
+  onHandlePopupForm: PropTypes.func
+};
 
 export default Header;

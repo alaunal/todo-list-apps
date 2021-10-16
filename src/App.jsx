@@ -42,6 +42,8 @@ class App extends Component {
       ],
       priorities: ['Low', 'Medium', 'high'],
       popupForm: false,
+      isEdit: false,
+      taskEdit: {},
     };
 
     this.onDragEnd = this.onDragEnd.bind(this);
@@ -81,7 +83,7 @@ class App extends Component {
   }
 
   render() {
-    const { dataTasks, priorities, popupForm } = this.state;
+    const { dataTasks, priorities, popupForm, isEdit, taskEdit } = this.state;
 
     return (
       <Layout>
@@ -114,7 +116,13 @@ class App extends Component {
         </DragDropContext>
         <Footer />
 
-        <Forms onHandlePopupForm={this.HandlePopupForm} isOpen={popupForm} priorities={priorities} />
+        <Forms
+          onHandlePopupForm={this.HandlePopupForm}
+          isOpen={popupForm}
+          priorities={priorities}
+          isEdit={isEdit}
+          taskEdit={taskEdit}
+        />
       </Layout>
     );
   }
