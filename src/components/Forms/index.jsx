@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import tw, { styled, css } from 'twin.macro';
 import { BsXLg } from 'react-icons/bs';
 import { map, isEmpty } from 'lodash';
@@ -12,24 +12,25 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function Froms(props) {
-  const { onHandlePopupForm, isOpen, isEdit, taskEdit, priorities } = props;
+  const {
+    onHandlePopupForm,
+    isOpen,
+    isEdit,
+    taskEdit,
+    priorities,
+    onHandleAddTask,
+    onHandleEditTask,
+  } = props;
 
   const {
     register,
     handleSubmit,
     setValue,
     clearErrors,
+    control,
+    watch,
     formState: { errors },
   } = useForm();
-
-  const initData = {
-    title: '',
-    priority: 0,
-    dueDate: new Date(),
-    description: '',
-  };
-
-  const [formData, setFormdata] = useState(initData);
 
   const quillModule = {
     toolbar: [
@@ -40,23 +41,55 @@ function Froms(props) {
   };
 
   useEffect(() => {
+    register('description', {});
+  }, [register]);
+
+  useEffect(() => {
     if (!isEmpty(taskEdit)) {
-      setFormdata(taskEdit);
+      setValue('title', taskEdit.title, { shouldValidate: false });
+      setValue('priority', taskEdit.priority, { shouldValidate: false });
+      setValue('dueDate', new Date(taskEdit.dueDate), { shouldValidate: false });
+      setValue('description', taskEdit.description, { shouldValidate: false });
     }
+
+    // eslint-disable-next-line
   }, [taskEdit]);
 
   useEffect(() => {
-    if (!isOpen) {
-      setFormdata(initData);
+    if (!isEdit) {
+      setValue('title', '', { shouldValidate: false });
+      setValue('priority', 'Low', { shouldValidate: false });
+      setValue('dueDate', new Date(), { shouldValidate: false });
+      setValue('description', '', { shouldValidate: false });
     }
-    // eslint-disable-next-line
-  }, [isOpen]);
 
-  const onSubmit = (data) => console.log(data);
+    // eslint-disable-next-line
+  }, []);
+
+  const editorContent = watch("description");
+
+  const onEditorDescription = (editorState) => {
+    setValue('description', editorState, { shouldValidate: false });
+  };
+
+  const onSubmit = (data) => {
+    if (isEdit) {
+      onHandleEditTask(taskEdit.id, data);
+    } else {
+      onHandleAddTask(data);
+    }
+
+    setTimeout(() => {
+      handleClosePopup();
+    }, 250);
+  };
 
   const handleClosePopup = () => {
     setValue('title', '', { shouldValidate: false });
-    clearErrors(['title']);
+    setValue('priority', 'Low', { shouldValidate: false });
+    setValue('dueDate', new Date(), { shouldValidate: false });
+    setValue('description', '', { shouldValidate: false });
+    clearErrors(['title', 'priority', 'dueDate']);
 
     onHandlePopupForm();
   };
@@ -82,8 +115,8 @@ function Froms(props) {
             <Label>Task Title</Label>
             <Input
               type="text"
+              name="title"
               onChange={(e) => {
-                setFormdata({ ...formData, title: e.target.value });
                 setValue('title', e.target.value, { shouldValidate: false });
               }}
               {...register('title', { required: true, maxLength: 250 })}
@@ -102,11 +135,14 @@ function Froms(props) {
             <div>
               <Label>Priorities</Label>
               <Select
-                onChange={(e) => setFormdata({ ...formData, priority: e.target.value })}
-                value={formData.priority}
+                onChange={(e) => {
+                  setValue('priority', e.target.value, { shouldValidate: false });
+                }}
+                name="priority"
+                {...register('priority', { required: true })}
               >
                 {map(priorities, (item, idx) => (
-                  <option value={idx} key={idx}>
+                  <option value={item} key={idx}>
                     {item}
                   </option>
                 ))}
@@ -114,12 +150,20 @@ function Froms(props) {
             </div>
             <div>
               <Label>Due date</Label>
-              <DatePicker
-                tw="block w-full text-sm md:text-base border-gray-200 text-gray-800 border rounded-md h-10 md:h-11 outline-none px-4 focus:ring-1 focus:ring-purple-300 border-gray-300"
-                selected={formData.dueDate}
-                onChange={(date) => setFormdata({ ...formData, dueDate: date })}
-                placeholderText="Due date..."
-                dateFormat="yyyy-MM-dd"
+              <Controller
+                control={control}
+                name="dueDate"
+                render={({ field }) => (
+                  <DatePicker
+                    tw="block w-full text-sm md:text-base border-gray-200 text-gray-800 border rounded-md h-10 md:h-11 outline-none px-4 focus:ring-1 focus:ring-purple-300 border-gray-300"
+                    selected={field.value}
+                    onChange={(date) => {
+                      setValue('dueDate', date, { shouldValidate: false });
+                    }}
+                    placeholderText="Due date..."
+                    dateFormat="yyyy-MM-dd"
+                  />
+                )}
               />
             </div>
           </div>
@@ -128,8 +172,9 @@ function Froms(props) {
             <QuillWrapper>
               <ReactQuill
                 theme="snow"
-                value={formData.description}
-                onChange={(value) => setFormdata({ ...formData, description: value })}
+                name="description"
+                value={editorContent}
+                onChange={onEditorDescription}
                 modules={quillModule}
                 tw="w-full block"
               />
@@ -141,7 +186,7 @@ function Froms(props) {
               tw="inline-flex bg-purple-600 hover:bg-purple-800 rounded-full py-2 px-5 md:py-3 md:px-8 text-white text-sm md:text-base items-center font-medium"
               type="submit"
             >
-              Create task
+              {isEdit ? 'Edit Task' : 'Create task'}
             </button>
           </div>
         </form>
@@ -154,6 +199,8 @@ function Froms(props) {
 
 Froms.propTypes = {
   onHandlePopupForm: PropTypes.func,
+  onHandleAddTask: PropTypes.func,
+  onHandleEditTask: PropTypes.func,
   isOpen: PropTypes.bool,
   isEdit: PropTypes.bool,
   taskEdit: PropTypes.object,
@@ -163,9 +210,10 @@ Froms.propTypes = {
 // -- styled area
 
 const Wrapper = styled.div(({ isOpen = false }) => [
-  tw`w-full h-screen absolute top-0 left-0 bg-gray-800 bg-opacity-50 z-10`,
+  tw`w-full h-screen fixed top-0 bg-gray-800 bg-opacity-50 z-10`,
   css`
     transition: opacity 0.35s;
+    max-width: 600px;
   `,
   isOpen ? tw`opacity-100 pointer-events-auto` : tw`opacity-0 pointer-events-none`,
 ]);
