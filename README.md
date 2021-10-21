@@ -1,70 +1,23 @@
-# Getting Started with Create React App
+# TheGawe - Todo list App
+**TheGawe** is a simple of to list application using react JS and Drag n drop feature.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features
+The main features of the **TheGawe Apps** include:
 
-## Available Scripts
+1. **React starter kit**
+	 - [CRA](https://create-react-app.dev/ "https://create-react-app.dev/") (create-react-app)
+2. **Drag and Drop Tools**
+	-   [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd "https://github.com/atlassian/react-beautiful-dnd") a libraries for drag and drop interactions within React
+3. **UI Toolkit & Styling**
+	- [Twin.macro](https://github.com/ben-rogerson/twin.macro "https://github.com/ben-rogerson/twin.macro"), Twin blends the magic of Tailwind with the flexibility of css-in-js.
+	- [Styled-components](https://styled-components.com/ "https://styled-components.com/"), Visual primitives for the component age
+4. **Utilities and other tools**
+	- [Lodash](https://lodash.com/ "https://lodash.com/"), A JavaScript utility library delivering consistency, modularity, performance, & extras.
+	- [Moment](https://momentjs.com/docs/ "https://momentjs.com/docs/"), A JavaScript date library for parsing, validating, manipulating, and formatting dates.
+	- [React Hook From](https://react-hook-form.com/ "https://react-hook-form.com/"), Performant, flexible and extensible forms with easy-to-use validation.
+	- [React-toastify](https://fkhadra.github.io/react-toastify/introduction "https://fkhadra.github.io/react-toastify/introduction"), a simple notification libraries
 
-In the project directory, you can run:
+---
 
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Demo App
+- [DEMO APP HERE](https://the-gawe.netlify.app/ "https://the-gawe.netlify.app/")
